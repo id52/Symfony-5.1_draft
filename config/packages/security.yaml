@@ -1,0 +1,23 @@
+security:
+    enable_authenticator_manager: true
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        our_db_provider:
+            entity:
+                class: App\Entity\User
+                property: token
+    firewalls:
+        main:
+            custom_authenticators:
+                - App\Security\ApiKeyAuthenticator
+
+
+    access_control:
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+    role_hierarchy:
+        ROLE_ADMIN: USER
+
+
